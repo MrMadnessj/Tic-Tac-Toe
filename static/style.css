@@ -1,0 +1,128 @@
+:root{
+    --cell-size: 100px;
+
+    --yellow-color: #F2F7A1;
+    --navy-color: #071952;
+    --blue-color: #088395;
+    --teal-color: #35A29F;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    background-color: #F2F7A1;
+}
+
+.heading-div{
+    text-align: center;
+    padding: 4rem;
+    font-size: 2rem;
+
+}
+
+.heading{
+    color: #071952;
+    text-shadow: 2px 4px rgb(68, 0, 0);
+}
+
+.container{
+    background-color: var(--navy-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 25rem;
+    
+    padding: 3rem;
+}
+
+
+.btn{
+    border: none;
+}
+
+.section-1{
+    flex: 1;
+    border: 1px solid green;
+}
+
+.section-2{
+    flex: 1;
+    border: 1px solid red;
+}
+
+.turn-div{
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 1px solid white;
+    color: #F2F7A1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.button-div{
+    flex: 2;
+    text-align: center;
+    border: 1px solid white;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.start{
+    border: none;
+    width: 9rem;
+    padding: 1.7rem 1.5rem 1.7rem 1.5rem;
+    font-size: 1.2rem;
+    background-color: #071952;
+    border: 3px solid var(--yellow-color);
+    border-radius: 0.5rem;
+    color: var(--yellow-color);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.start:hover{
+    background-color: #F2F7A1;
+    color: #071952;
+    cursor: pointer;
+}
+
+.result-div{
+    flex: 1;
+    text-align: center;
+    border: 1px solid white;
+    color: var(--yellow-color);
+    font-family: monospace;
+    min-height: 40px;
+}
+
+.board{
+    flex: 1;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.square{
+    
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: var(--yellow-color);
+    border: 1px solid var(--navy-color);
+    color: var(--navy-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    user-select: none;
+}
