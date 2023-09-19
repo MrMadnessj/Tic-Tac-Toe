@@ -5,9 +5,13 @@ const startButton = document.querySelector('.start');
 const displayController = (() => {
     const renderMessage = (message) => {
         document.querySelector('.result').innerHTML = message;
-    }
+    };
 
-    return {renderMessage};
+    const renderTurn = (turn) => {
+        document.querySelector('.turn').innerHTML = `<p class="turn">Turn: ${turn}</p>`;
+    };
+
+    return {renderMessage, renderTurn};
 })();// need to put this for it to work 
 
 
@@ -51,17 +55,32 @@ const Game = (() => {
     let currPlayerIndex;
     let gameOver;
 
-    const start = () => {
-        players = [
-            createPlayer('Player 1', "x"),
-            createPlayer('Player 2', "o")
-        ]
+    const checkName = () => {
+        if(document.getElementById('p1name').value === "" || document.getElementById('p1name').value === undefined ||
+            document.getElementById('p2name').value === "" || document.getElementById('p1name').value === undefined)
+            {
+                document.querySelector('.error').innerHTML = "Enter a name!";
+                return 0;
+            }
+    }
 
+    const start = () => {
+
+        
+        if(checkName() == 0)return;
+        document.querySelector('.error').innerHTML = "";
+        players = [
+            createPlayer(document.getElementById('p1name').value, "X"),
+            createPlayer(document.getElementById('p2name').value, "O")
+        ];
+
+        console.log(players[0][0])
         currPlayerIndex = 0;
         gameOver = false;
         Gameboard.render();
         
     };
+
 
 
     const clickHandler = (e) => {   
@@ -75,19 +94,23 @@ const Game = (() => {
 
         if(checkForWin(Gameboard.getGameBoard(), players[currPlayerIndex].mark)) //curreplayer not required but it works as it is not used in the function itself
         {
+            console.log(`${players[currPlayerIndex].name} Won!`);
+            displayController.renderTurn('X/O');
+            displayController.renderMessage(`${players[currPlayerIndex].name} Won!`);
             gameOver = true;
-            console.log(`${players[currPlayerIndex].mark} Won!`);
-            displayController.renderMessage(`${players[currPlayerIndex].mark} Won!`);
+            return;
         }
         else if(checkForDraw(Gameboard.getGameBoard()))
         {
-            gameOver = true;
+            displayController.renderTurn('X/O');
             console.log(`It's a tie`);
             displayController.renderMessage(`It's a Tie!`);
+            gameOver = true;
+            return;
         }
 
         currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
-        document.querySelector
+        displayController.renderTurn(players[currPlayerIndex].name);
 
     };
 
@@ -97,7 +120,7 @@ const Game = (() => {
             Gameboard.update(i, "");
         gameOver = false;
 
-
+        document.querySelector('.turn').innerHTML = `<p class="turn">Turn: X/O</p>`
         displayController.renderMessage(``);
         Gameboard.render();
     }

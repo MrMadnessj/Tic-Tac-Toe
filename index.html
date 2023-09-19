@@ -13,28 +13,61 @@
     </div>
 
     <div class="container">
+        <div class="inner-container">
+            <div class="section-1">    
+                <div class="board-div">
+                    <div class="board"></div>
+                </div>
+            </div>
+            
+            <div class="section-2">
+                <div class="turn-div">
+                    <h1 class="turn">Turn: X/O</h1>
+                </div>
+            
+                <div class="button-div">
+                    <button class="start">START</button>
+                    <button class="start" id="restart">RESTART</button>
+                </div>
+            
+                <div class="result-div">
+                    <h1 class="result"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inputs">
 
-        <div class="section-1">    
-            <div class="board-div">
-                <div class="board"></div>
+            <div class="players-div">
+                    <div class="player-input-cards">
+                        <div class="player1">
+                            <label for="fname">P1</label>
+                            <input type="text" id="p1name" name="fname">
+                        </div>
+                        <div class="player2">
+                            <label for="lname">P2</label>
+                            <input type="text" id="p2name" name="lname">
+                        </div>
+                    </div>    
+                    <!-- <button class="player-choose">Enter</button> -->
+                <div class="error-div">
+                    <p class="error"></p>
+                </div>
             </div>
+
+
+            <div class="ai-div">
+                <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                    
+                </label>
+                <p>AI</p>
+            </div>
+
         </div>
-        
-        <div class="section-2">
-            <div class="turn-div">
-                <h1 class="turn">Turn: X/O</h1>
-            </div>
-        
-            <div class="button-div">
-                <button class="start">START</button>
-                <button class="start" id="restart">RESTART</button>
-            </div>
-        
-            <div class="result-div">
-                <h1 class="result">O wins</h1>
-            </div>
-        </div>
-   
+        <p class="github">-mmj-</p>
     </div>
 </body>
 </html>
