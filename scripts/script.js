@@ -56,6 +56,10 @@ const Game = (() => {
     let gameOver;
 
     let atleastOneGamePlayed = 0;
+    const aiCheck = () => {
+        if(document.getElementById('ai-check').checked == true)
+            return true;
+    }
 
     const checkName = () => {
         if(document.getElementById('p1name').value === "" || document.getElementById('p1name').value === undefined ||
@@ -74,10 +78,10 @@ const Game = (() => {
         document.querySelector('.error').innerHTML = "";
         players = [
             createPlayer(document.getElementById('p1name').value, "X"),
-            createPlayer(document.getElementById('p2name').value, "O"),
+            createPlayer(document.getElementById('p2name').value, "O")
         ];
 
-        console.log(players[0][0])
+        console.log(players[0][1])
         currPlayerIndex = 0;
         gameOver = false;
         Gameboard.render();
@@ -85,15 +89,20 @@ const Game = (() => {
     };
 
     function ai(){
-
+        players[1] = createPlayer("AI", "O");
+        console.log(players);
         const board = Gameboard.getGameBoard();
+        let newboard = [];
         for(let i=0; i<9; i++)
         {
             if(board[i] === ""){
-                Gameboard.update(i, players[1].mark);
-                break;
+                newboard.push(i);
             }
         }
+        let move = newboard[Math.floor(Math.random() * newboard.length)];
+        console.log(move);
+        Gameboard.update(move, players[currPlayerIndex].mark);
+        currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
     }
 
 
@@ -101,7 +110,7 @@ const Game = (() => {
     const clickHandler = (e) => {   
         if(gameOver)
             return;
-        
+
         const clickedSquareIndex = parseInt(e.target.id.split("-")[1]);
         console.log(clickedSquareIndex);
         if(Gameboard.getGameBoard()[clickedSquareIndex] != "")return;
@@ -124,13 +133,15 @@ const Game = (() => {
             return;
         }
 
-        if(document.getElementById('ai-check').checked == true)
-            ai();
-        else
-            currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
+
+
+        currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
         displayController.renderTurn(players[currPlayerIndex].name);
 
+        if(aiCheck && currPlayerIndex == 1)
+        ai();
     };
+
 
     const restart = () =>{
         if(atleastOneGamePlayed == 0)return;
@@ -170,9 +181,12 @@ function checkForWin(board)
     for(let i=0; i<winningCombinations.length; i++)
     {
         const [a, b, c] = winningCombinations[i];
-        if(board[a] && board[a] === board[b] && board[a] === board[c])  //checks if char in those positions are the same
+        if(board[a] && board[a] === board[b] && board[a] === board[c]){ //checks if char in those positions are the same
+            console.log(`${board[a]} ${board[b]} ${board[c]}`);
             return true;
+        }
     }
+
     return false;
 }
 
