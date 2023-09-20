@@ -55,6 +55,8 @@ const Game = (() => {
     let currPlayerIndex;
     let gameOver;
 
+    let atleastOneGamePlayed = 0;
+
     const checkName = () => {
         if(document.getElementById('p1name').value === "" || document.getElementById('p1name').value === undefined ||
             document.getElementById('p2name').value === "" || document.getElementById('p1name').value === undefined)
@@ -64,14 +66,15 @@ const Game = (() => {
             }
     }
 
+
     const start = () => {
 
-        
+        atleastOneGamePlayed = 1;
         if(checkName() == 0)return;
         document.querySelector('.error').innerHTML = "";
         players = [
             createPlayer(document.getElementById('p1name').value, "X"),
-            createPlayer(document.getElementById('p2name').value, "O")
+            createPlayer(document.getElementById('p2name').value, "O"),
         ];
 
         console.log(players[0][0])
@@ -81,12 +84,24 @@ const Game = (() => {
         
     };
 
+    function ai(){
+
+        const board = Gameboard.getGameBoard();
+        for(let i=0; i<9; i++)
+        {
+            if(board[i] === ""){
+                Gameboard.update(i, players[1].mark);
+                break;
+            }
+        }
+    }
+
 
 
     const clickHandler = (e) => {   
         if(gameOver)
             return;
-
+        
         const clickedSquareIndex = parseInt(e.target.id.split("-")[1]);
         console.log(clickedSquareIndex);
         if(Gameboard.getGameBoard()[clickedSquareIndex] != "")return;
@@ -109,13 +124,17 @@ const Game = (() => {
             return;
         }
 
-        currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
+        if(document.getElementById('ai-check').checked == true)
+            ai();
+        else
+            currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
         displayController.renderTurn(players[currPlayerIndex].name);
 
     };
 
     const restart = () =>{
-        Game.start();           //extra to prevent error if restart button clicked first
+        if(atleastOneGamePlayed == 0)return;
+        // Game.start();           //extra to prevent error if restart button clicked first
         for(let i=0; i<9; i++)
             Gameboard.update(i, "");
         gameOver = false;
