@@ -88,34 +88,8 @@ const Game = (() => {
         
     };
 
-    function ai(){
-        players[1] = createPlayer("AI", "O");
-        console.log(players);
-        const board = Gameboard.getGameBoard();
-        let newboard = [];
-        for(let i=0; i<9; i++)
-        {
-            if(board[i] === ""){
-                newboard.push(i);
-            }
-        }
-        let move = newboard[Math.floor(Math.random() * newboard.length)];
-        console.log(move);
-        Gameboard.update(move, players[currPlayerIndex].mark);
-        currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
-    }
 
-
-
-    const clickHandler = (e) => {   
-        if(gameOver)
-            return;
-
-        const clickedSquareIndex = parseInt(e.target.id.split("-")[1]);
-        console.log(clickedSquareIndex);
-        if(Gameboard.getGameBoard()[clickedSquareIndex] != "")return;
-        Gameboard.update(clickedSquareIndex, players[currPlayerIndex].mark);
-
+    const checking = () =>{
         if(checkForWin(Gameboard.getGameBoard(), players[currPlayerIndex].mark)) //curreplayer not required but it works as it is not used in the function itself
         {
             console.log(`${players[currPlayerIndex].name} Won!`);
@@ -129,17 +103,56 @@ const Game = (() => {
             displayController.renderTurn('X/O');
             console.log(`It's a tie`);
             displayController.renderMessage(`It's a Tie!`);
+            
             gameOver = true;
             return;
         }
+    }
+
+    const ai = () => {
+        let bestScore = Infinity;
+
+        let bestmove;
+        players[1] = createPlayer("AI", "O");
+        console.log(players);
+        const board = Gameboard.getGameBoard();
+        for(let i=0; i<9; i++)
+        {
+            if(board[i] === ""){
+                Gameboard.update(i, players[currPlayerIndex].mark);
+                let score = minimax(Gameboard.getGameBoard());
+                Gameboard.update(i, "");
+
+                if(score < bestScore){
+                    bestScore = score;
+                    bestmove = i;
+                }           
+            }
+        }
+        Gameboard.update(bestmove, players[currPlayerIndex].mark);
+        checking();
+        currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
+    }
 
 
 
+    const clickHandler = (e) => {   
+        if(gameOver)
+            return;
+
+        checking();
+
+        const clickedSquareIndex = parseInt(e.target.id.split("-")[1]);
+        console.log(clickedSquareIndex);
+        if(Gameboard.getGameBoard()[clickedSquareIndex] != "")return;
+        Gameboard.update(clickedSquareIndex, players[currPlayerIndex].mark);
+      
         currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
         displayController.renderTurn(players[currPlayerIndex].name);
 
-        if(aiCheck && currPlayerIndex == 1)
-        ai();
+        if(aiCheck && currPlayerIndex == 1){
+            ai();  
+        }
     };
 
 
@@ -155,6 +168,10 @@ const Game = (() => {
         Gameboard.render();
     }
 
+    function minimax(board)
+    {
+        return 1;
+    }
 
     return {start, clickHandler, restart};
 })();
