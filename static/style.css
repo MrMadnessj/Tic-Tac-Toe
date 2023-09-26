@@ -58,12 +58,12 @@ body{
 
 .section-1{
     flex: 1;
-    border: 1px solid green;
+
 }
 
 .section-2{
     flex: 1;
-    border: 1px solid red;
+
     min-height: 310px;
 }
 
@@ -153,7 +153,7 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    border: 2px solid red;
+
 }
 
 .github{
@@ -225,13 +225,13 @@ input:checked + .slider:before{
   }
 
 .ai-div{
-    border: 1px solid red;
+
     font-size: 1.2rem;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
 
 .players-div{
-    border: 1px solid red;
+
 }
 
 .players-div > form{
@@ -302,7 +302,7 @@ input[type=text] {
 }
 
 input[type=text]:focus {
-    border: 3px solid #ff0000;
+
 }
 
 .error{
