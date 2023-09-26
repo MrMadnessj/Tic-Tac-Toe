@@ -110,29 +110,30 @@ const Game = (() => {
     }
 
     const ai = () => {
-        let bestScore = Infinity;
-
-        let bestmove;
         players[1] = createPlayer("AI", "O");
-        console.log(players);
+        let bestScore = -Infinity; // Change to -Infinity for maximizing
+        let bestMove = -1;
+      
         const board = Gameboard.getGameBoard();
-        for(let i=0; i<9; i++)
-        {
-            if(board[i] === ""){
-                Gameboard.update(i, players[currPlayerIndex].mark);
-                let score = minimax(Gameboard.getGameBoard());
-                Gameboard.update(i, "");
-
-                if(score < bestScore){
-                    bestScore = score;
-                    bestmove = i;
-                }           
+        for (let i = 0; i < 9; i++) {
+          if (board[i] === "") {
+            board[i] = "O";
+            const score = minimax(board, 0, false); // Pass false for minimizing
+            board[i] = "";
+      
+            if (score > bestScore) {
+              bestScore = score;
+              bestMove = i;
             }
+          }
         }
-        Gameboard.update(bestmove, players[currPlayerIndex].mark);
-        checking();
-        currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
-    }
+      
+        if (bestMove !== -1) {
+          Gameboard.update(bestMove, players[currPlayerIndex].mark);
+          checking();
+          currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
+        }
+    };
 
 
 
@@ -140,12 +141,16 @@ const Game = (() => {
         if(gameOver)
             return;
 
-        checking();
 
         const clickedSquareIndex = parseInt(e.target.id.split("-")[1]);
         console.log(clickedSquareIndex);
         if(Gameboard.getGameBoard()[clickedSquareIndex] != "")return;
         Gameboard.update(clickedSquareIndex, players[currPlayerIndex].mark);
+
+        checking();
+
+        if(gameOver)
+            return;
       
         currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
         displayController.renderTurn(players[currPlayerIndex].name);
@@ -168,9 +173,52 @@ const Game = (() => {
         Gameboard.render();
     }
 
-    function minimax(board)
+    
+    function minimax(board, depth, isMaximizing)
     {
-        return 1;
+        const scores = {
+            X: -1,
+            O: 1,
+            tie: 0
+        }
+
+        const winner = checkForWin(board);
+        if(winner == "X")
+            return scores.X;
+        else if(winner == "O")
+            return scores.O;
+
+        if(checkForDraw(board))
+            return scores.tie;
+
+        if(isMaximizing)
+        {
+            let bestScore = -Infinity;
+            for(let i=0; i<9; i++)
+            {
+                if(board[i] === "")
+                {
+                    board[i] = "O";
+                    const score = minimax(board, depth+1, false);
+                    board[i] = "";
+                    bestScore = Math.max(score, bestScore);
+                }    
+            }
+            return bestScore;
+        }
+        else
+        {
+            let bestScore = Infinity;
+            for (let i = 0; i < 9; i++) {
+              if (board[i] === "") {
+                board[i] = "X";
+                const score = minimax(board, depth + 1, true);
+                board[i] = "";
+                bestScore = Math.min(score, bestScore);
+              }
+            }
+            return bestScore;
+        }
     }
 
     return {start, clickHandler, restart};
@@ -200,7 +248,7 @@ function checkForWin(board)
         const [a, b, c] = winningCombinations[i];
         if(board[a] && board[a] === board[b] && board[a] === board[c]){ //checks if char in those positions are the same
             console.log(`${board[a]} ${board[b]} ${board[c]}`);
-            return true;
+            return board[a];
         }
     }
 
