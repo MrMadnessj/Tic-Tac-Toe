@@ -1,0 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800;900&display=swap');
+
+:root{
+    --cell-size: 100px;
+
+    --yellow-color: #F2F7A1;
+    --navy-color: #071952;
+    --blue-color: #088395;
+    --teal-color: #35A29F;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+}
+
+body{
+    height: 100vh;
+    background-color: #F2F7A1;
+    display: flex;
+    flex-direction: column;
+}
+
+.heading-div{
+    text-align: center;
+    padding: 4rem;
+    font-size: 2rem;
+    flex: 1;
+
+}
+
+.heading{
+    color: #071952;
+    text-shadow: 2px 4px rgb(68, 0, 0);
+}
+
+.container{
+    flex: 1;
+    background-color: var(--navy-color);
+
+    min-height: 25rem;
+    
+    padding: 3rem 4rem 4rem 4rem;
+
+}
+
+.inner-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin:  0 20rem 0 20rem;
+}
+
+
+.btn{
+    border: none;
+}
+
+.section-1{
+    flex: 1;
+    border: 1px solid green;
+}
+
+.section-2{
+    flex: 1;
+    border: 1px solid red;
+    min-height: 310px;
+}
+
+.turn-div{
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    border: 1px solid white;
+
+}
+
+.turn{
+    color: #F2F7A1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.button-div{
+    flex: 2;
+    text-align: center;
+    border: 1px solid white;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+}
+
+.start{
+    border: none;
+    width: 9rem;
+    padding: 1.7rem 1.5rem 1.7rem 1.5rem;
+    font-size: 1.2rem;
+    background-color: #071952;
+    border: 3px solid var(--yellow-color);
+    border-radius: 0.5rem;
+    color: var(--yellow-color);
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: bold;
+}
+
+.start:hover{
+    background-color: #F2F7A1;
+    color: #071952;
+    cursor: pointer;
+}
+
+.result-div{
+    flex: 1;
+    text-align: center;
+    border: 1px solid white;
+    color: var(--yellow-color);
+    font-family: monospace;
+    min-height: 40px;
+}
+
+.board{
+    flex: 1;
+    display: grid;
+    justify-content: center;
+    align-content: center;
+    grid-template-columns: repeat(3, auto);
+}
+
+.square{
+    
+    width: var(--cell-size);
+    height: var(--cell-size);
+    background-color: var(--yellow-color);
+    border: 1px solid var(--navy-color);
+    color: var(--navy-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    user-select: none;
+}
+
+
+.footer{
+    text-align: center;
+    padding: 0.5rem;
+    flex: 1;
+    min-height: 18.5rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    border: 2px solid red;
+}
+
+.github{
+    align-self: flex-end;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    color: #071952;
+    font-weight: bold;
+}
+
+.switch{
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input{
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider{
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--yellow-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+    border: 1px solid var(--navy-color);
+}
+
+.slider:before{
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: var(--yellow-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider{
+    background-color: var(--navy-color);
+}
+
+input:focus + .slider {
+    /* box-shadow: 5px 2px 1px #2196F3; */
+    /* box-shadow: 0 0 1px blue; */
+}
+
+input:checked + .slider:before{
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 25px;
+  }
+  
+  .slider.round:before {
+    border-radius: 30px;
+  }
+
+.ai-div{
+    border: 1px solid red;
+    font-size: 1.2rem;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.players-div{
+    border: 1px solid red;
+}
+
+.players-div > form{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+}
+
+.player-choose{
+    border: none;
+    font-size: 1.2rem;
+    width: 6rem;
+    text-align: center;
+    height: 2.5rem;
+    background-color: transparent;
+    color: var(--navy-color);
+    font-weight: bold;
+    border: 3px solid var(--navy-color);
+    transition-duration: 0.2s;
+}
+
+.player-choose:hover{
+    background-color: #071952;
+    color: #F2F7A1;
+    cursor: pointer;
+}
+
+.inputs{
+    border: 1px solid green;
+    display: flex;
+    position: absolute;
+    gap: 7rem;
+}
+
+.player1, .player2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.player1{
+    gap: 0.5rem;
+}
+
+div > div > label{
+    font-size: 2rem;
+    font-family: 'Playfair Display', serif;
+    font-weight: 800;
+}
+
+.player-input-cards{
+    display: flex;
+    gap: 1.7rem;
+    align-items: center;
+}
+
+input[type=text] {
+    width: 200px;
+    padding: 5px;
+
+    box-sizing: border-box;
+    border-radius: 5px;
+    border: 3px solid #0c0042;
+    background-color: transparent;
+    outline: none;
+}
+
+input[type=text]:focus {
+    border: 3px solid #ff0000;
+}
+
+.error{
+    padding: 0.5rem;
+    color: red;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+

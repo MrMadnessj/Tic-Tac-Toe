@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="static/style.css">
+    <script src="scripts/script.js" defer></script>
+    <title>TIC TAC TOE</title>
+</head>
+<body>
+    <div class="heading-div">
+        <h1 class="heading">TIC-TAC-TOE</h1>
+    </div>
+
+    <div class="container">
+        <div class="inner-container">
+            <div class="section-1">    
+                <div class="board-div">
+                    <div class="board"></div>
+                </div>
+            </div>
+            
+            <div class="section-2">
+                <div class="turn-div">
+                    <h1 class="turn">Turn: X/O</h1>
+                </div>
+            
+                <div class="button-div">
+                    <button class="start">START</button>
+                    <button class="start" id="restart">RESTART</button>
+                </div>
+            
+                <div class="result-div">
+                    <h1 class="result"></h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="inputs">
+
+            <div class="players-div">
+                    <div class="player-input-cards">
+                        <div class="player1">
+                            <label for="p1name">P1</label>
+                            <input type="text" id="p1name" name="fname" placeholder="X">
+                        </div>
+                        <div class="player2">
+                            <label for="p2name">P2</label>
+                            <input type="text" id="p2name" name="lname" placeholder="O">
+                        </div>
+                    </div>    
+                    <!-- <button class="player-choose">Enter</button> -->
+                <div class="error-div">
+                    <p class="error"></p>
+                </div>
+            </div>
+
+
+            <div class="ai-div">
+                <label class="switch">
+                    <input id="ai-check" type="checkbox">
+                    <span class="slider round"></span>
+                    
+                </label>
+                <p>AI</p>
+            </div>
+
+        </div>
+        <p class="github">-mmj-</p>
+    </div>
+</body>
+</html>
