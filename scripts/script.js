@@ -57,8 +57,10 @@ const Game = (() => {
 
     let atleastOneGamePlayed = 0;
     const aiCheck = () => {
-        if(document.getElementById('ai-check').checked == true)
+        if(document.getElementById('ai-check').checked == true){
             return true;
+        }
+        return false;
     }
 
     const checkName = () => {
@@ -155,8 +157,11 @@ const Game = (() => {
         currPlayerIndex = currPlayerIndex === 0 ? 1 : 0;
         displayController.renderTurn(players[currPlayerIndex].name);
 
-        if(aiCheck && currPlayerIndex == 1){
+        if(aiCheck() && currPlayerIndex == 1){
+            console.log("Ai checkbox checked");
             ai();  
+        }else{
+            players[1] = createPlayer(document.getElementById('p2name').value, "O");
         }
     };
 
@@ -247,7 +252,7 @@ function checkForWin(board)
     {
         const [a, b, c] = winningCombinations[i];
         if(board[a] && board[a] === board[b] && board[a] === board[c]){ //checks if char in those positions are the same
-            console.log(`${board[a]} ${board[b]} ${board[c]}`);
+            // console.log(`${board[a]} ${board[b]} ${board[c]}`);
             return board[a];
         }
     }
